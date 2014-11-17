@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoodWatch</string>
+
+    <string-array
+        name="color_meanings">
+        <item>Zen</item>
+        <item>Sleepy</item>
+        <item>Relaxed</item>
+        <item>Serene</item>
+        <item>Creative</item>
+        <item>Awake</item>
+        <item>Focused</item>
+        <item>Motivated</item>
+        <item>Energized</item>
+        <item>Excited</item>
+    </string-array>
+
+</resources>
