@@ -21,9 +21,6 @@ import java.util.Random;
  */
 public class BackgroundAnimationView extends View {
 
-    //The number of colors in the fade
-    private final int FADE_STEPS = 200;
-
     //colors to shift between stored in colors.xml
     private int[] moodRingColors;
 
@@ -55,17 +52,13 @@ public class BackgroundAnimationView extends View {
     private Handler handler;
 
     //Regular Digital Font
-    Typeface digitalNumberFont;
+    private Typeface digitalNumberFont;
 
     //Italicized Digital Font
-    Typeface italicDigitalNumberFont;
+    private Typeface italicDigitalNumberFont;
 
-    /**
-     * Value b/t 0 and 1.
-     */
-    float progress = 0.0f;
-
-    int lastColor;
+    //The last color the watch was
+    private int lastColor;
 
     //Calculate how far the shift is
     float progressSteps = 0.1f;
@@ -122,7 +115,7 @@ public class BackgroundAnimationView extends View {
                 //The following block of code generates
                 //A sequence of numbers that simulate
                 //A gradually climbing heart rate
-                /*try {
+                try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -133,7 +126,7 @@ public class BackgroundAnimationView extends View {
                 else
                 {
                     currentBPM += rand.nextFloat();
-                }*/
+                }
 
                 //adjust bpm on scale
                 int adjustedBPM = (int)currentBPM - LOW_BPM;
@@ -209,7 +202,7 @@ public class BackgroundAnimationView extends View {
         float moodTextHeight = paint.getTextSize();
         //Get the heart rate text size
         paint.setTextSize(80);
-        float heartTextHeight = paint.getTextSize();
+
 
 
 
@@ -281,17 +274,15 @@ public class BackgroundAnimationView extends View {
     //Calculate a value between one color and another, will rewrite this
     //in a less terrifying manner soon
     private int getColor(float fraction, int colorStart, int colorEnd) {
-        int startInt = colorStart;
-        int startA = (startInt >> 24) & 0xff;
-        int startR = (startInt >> 16) & 0xff;
-        int startG = (startInt >> 8) & 0xff;
-        int startB = startInt & 0xff;
+        int startA = (colorStart >> 24) & 0xff;
+        int startR = (colorStart >> 16) & 0xff;
+        int startG = (colorStart >> 8) & 0xff;
+        int startB = colorStart & 0xff;
 
-        int endInt = colorEnd;
-        int endA = (endInt >> 24) & 0xff;
-        int endR = (endInt >> 16) & 0xff;
-        int endG = (endInt >> 8) & 0xff;
-        int endB = endInt & 0xff;
+        int endA = (colorEnd >> 24) & 0xff;
+        int endR = (colorEnd >> 16) & 0xff;
+        int endG = (colorEnd >> 8) & 0xff;
+        int endB = colorEnd & 0xff;
 
         return (startA + (int)(fraction * (endA - startA))) << 24 |
                 (startR + (int)(fraction * (endR - startR))) << 16 |
