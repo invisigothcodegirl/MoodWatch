@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MoodWatch</string>
+    <string name="long_press_intro">Exit Mood Watch?</string>
 
     <string-array
         name="color_meanings">

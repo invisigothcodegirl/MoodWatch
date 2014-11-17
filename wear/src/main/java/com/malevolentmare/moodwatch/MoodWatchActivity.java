@@ -7,12 +7,21 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.wearable.view.DismissOverlayView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 public class MoodWatchActivity extends Activity implements SensorEventListener {
 
     //The sensor manager
     private SensorManager sensorManager;
     private BackgroundAnimationView backgroundView;
+
+    //Dismiss Overlay piece so that it can close with long press
+    //instead of swipe
+    private DismissOverlayView dismissOverlay;
+    private GestureDetector detector;
+
 
     /** On Activity Create Method ************************************************/
     @Override
@@ -42,6 +51,27 @@ public class MoodWatchActivity extends Activity implements SensorEventListener {
 
 
 
+        // Obtain the DismissOverlayView element
+        dismissOverlay = (DismissOverlayView) findViewById(R.id.dismiss_overlay);
+        dismissOverlay.setIntroText(R.string.long_press_intro);
+        dismissOverlay.showIntroIfNecessary();
+
+        // Configure a gesture detector
+        detector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            public void onLongPress(MotionEvent ev) {
+                dismissOverlay.show();
+            }
+        });
+
+
+
+
+    }
+
+    // Capture long presses
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return detector.onTouchEvent(ev) || super.onTouchEvent(ev);
     }
 
     @Override
